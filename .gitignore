@@ -3,8 +3,6 @@ HELP.md
 !**/src/main/**/target/
 !**/src/test/**/target/
 data/
-static/
-templates/
 
 ### STS ###
 .apt_generated

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👥 Donatori - Petflix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>👥 Gestione Donatori</h1>
+                <p>Visualizza e gestisci i donatori del rifugio</p>
+            </div>
+            <div class="actions">
+                <button class="btn btn-success" onclick="openModal('add')">➕ Aggiungi Donatore</button>
+                <a href="index.html" class="btn">🏠 Home</a>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <div id="loading" class="loading">Caricamento donatori...</div>
+            <table id="donatoriTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Indirizzo</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="donatoriBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal per Aggiungi/Modifica -->
+    <div id="donatoreModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Aggiungi Donatore</h2>
+            <form id="donatoreForm">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cognome">Cognome:</label>
+                    <input type="text" id="cognome" name="cognome" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Telefono:</label>
+                    <input type="tel" id="telefono" name="telefono">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="indirizzo">Indirizzo:</label>
+                    <textarea id="indirizzo" name="indirizzo" rows="3"></textarea>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn btn-success">💾 Salva</button>
+                    <button type="button" class="btn" onclick="closeModal()">❌ Annulla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="donatori.js"></script>
+</body>
+</html>

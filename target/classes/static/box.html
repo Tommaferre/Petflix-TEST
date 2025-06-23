@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 Box - Petflix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>🏠 Gestione Box</h1>
+                <p>Visualizza e gestisci i box del rifugio</p>
+            </div>
+            <div class="actions">
+                <button class="btn btn-success" onclick="openModal('add')">➕ Aggiungi Box</button>
+                <a href="index.html" class="btn">🏠 Home</a>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <div id="loading" class="loading">Caricamento box...</div>
+            <table id="boxTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Capienza</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="boxBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal per Aggiungi/Modifica -->
+    <div id="boxModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Aggiungi Box</h2>
+            <form id="boxForm">
+                <div class="form-group">
+                    <label for="nome">Nome Box:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="capienza">Capienza:</label>
+                    <input type="number" id="capienza" name="capienza" min="1" required>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn btn-success">💾 Salva</button>
+                    <button type="button" class="btn" onclick="closeModal()">❌ Annulla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="box.js"></script>
+</body>
+</html>
