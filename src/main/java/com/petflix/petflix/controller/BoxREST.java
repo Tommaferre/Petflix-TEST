@@ -62,6 +62,6 @@ public class BoxREST {
 
     @PatchMapping("/{id}")
     public Box patchBox(@PathVariable int id, @RequestBody Box box) {
-        return boxService.updateBox(id, box);
+        return boxService.patchBox(id, box);
     }
 }

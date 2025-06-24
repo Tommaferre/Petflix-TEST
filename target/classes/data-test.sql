@@ -77,3 +77,49 @@ INSERT INTO box (
 ('Box Isolamento', 1),
 ('Box Cuccioli', 5),
 ('Box Quarantena', 2);
+INSERT INTO adozioni (
+    id_animale,
+    id_modulo_adozione,
+    id_adottante,
+    data_richiesta,
+    data_adozione,
+    stato,
+    quota_adozione,
+    note
+) VALUES
+(101, 201, 301, '2025-05-10', '2025-05-20', 'completata', 80.00, 'Tutto completato con successo.'),
+(102, 202, 302, '2025-06-01', NULL, 'richiesta', 50.00, 'In attesa di approvazione.'),
+(103, 203, 303, '2025-04-15', '2025-04-22', 'approvata', 100.00, 'Famiglia già contattata.'),
+(104, 204, 304, '2025-05-22', NULL, 'rifiutata', NULL, 'Non idoneo dopo colloquio.'),
+(105, 205, 305, '2025-06-05', NULL, 'annullata', NULL, 'Richiesta annullata');
+
+INSERT INTO adottanti (
+    nome, cognome, telefono, email, indirizzo, idoneo
+) VALUES
+('Mario', 'Rossi', '3331234567', 'mario.rossi@email.com', 'Via Roma 1, Milano', 'idoneo'),
+('Luca', 'Bianchi', '3339876543', 'luca.bianchi@email.com', 'Via Milano 10, Torino', 'non idoneo');
+INSERT INTO dottori_veterinari (
+    nome,
+    cognome,
+    telefono,
+    email
+) VALUES
+('Anna', 'Neri', '3456789012', 'anna.neri@example.com'),
+('Marco', 'Bianchi', '3298765432', 'marco.bianchi@example.com'),
+('Giulia', 'Verdi', '3387654321', 'giulia.verdi@example.com');
+
+
+INSERT INTO cartelle_cliniche (
+    gruppo_sanguigno,
+    sterilizzato,
+    peso,
+    sesso,
+    eta_stimata,
+    altezza,
+    allergie_note
+) VALUES
+( 'A+', true, 4.50, 'F', '2 anni', 30.0, 'Nessuna'),
+( '0-', false, 25.00, 'M', '5 anni', 55.0, 'Allergia a penicillina'),
+( 'B+', true, 1.20, 'F', '1 anno', 20.0, NULL),
+( 'AB-', false, 12.00, 'M', '3 anni', 40.0, 'Intolleranza lattosio'),
+( 'A-', true, 3.80, 'F', '4 anni', 28.0, '');

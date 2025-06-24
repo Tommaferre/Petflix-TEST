@@ -19,7 +19,7 @@ public class Box {
 
     private String nome;
 
-    private Integer capienza;
+    private int capienza;
 
     // Getters and Setters
     public Integer getId_box() {
@@ -38,11 +38,11 @@ public class Box {
         this.nome = nome;
     }
 
-    public Integer getCapienza() {
+    public int getCapienza() {
         return capienza;
     }
 
-    public void setCapienza(Integer capienza) {
+    public void setCapienza(int capienza) {
         this.capienza = capienza;
     }
 }

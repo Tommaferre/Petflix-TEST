@@ -14,4 +14,5 @@ public interface BoxService {
     Box saveBox(Box box);
     Box updateBox(Integer id, Box boxDetails);
     void deleteById(Integer id);
+    Box patchBox(int id_box, Box box);
 }

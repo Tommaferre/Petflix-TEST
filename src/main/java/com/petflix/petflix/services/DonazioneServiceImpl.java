@@ -1,9 +1,11 @@
 package com.petflix.petflix.services;
-import com.petflix.petflix.model.Donazione;
-import com.petflix.petflix.repos.DonazioneRepo;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.petflix.petflix.model.Donazione;
+import com.petflix.petflix.repos.DonazioneRepo;
 
 /**
  * Service che gestisce la logica di business per le Donazioni.
@@ -23,6 +25,7 @@ public class DonazioneServiceImpl implements DonazioneService {
     /**
      * Restituisce tutte le donazioni presenti nel database
      */
+    @Override
     public List<Donazione> findAll() {
         return donazioneRepository.findAll();
     }
@@ -30,6 +33,7 @@ public class DonazioneServiceImpl implements DonazioneService {
     /**
      * Cerca una donazione per ID
      */
+    @Override
     public Optional<Donazione> findById(Integer id) {
         return donazioneRepository.findById(id);
     }
@@ -37,6 +41,7 @@ public class DonazioneServiceImpl implements DonazioneService {
     /**
      * Salva una nuova donazione o aggiorna una esistente
      */
+    @Override
     public Donazione save(Donazione donazione) {
         return donazioneRepository.save(donazione);
     }
@@ -44,6 +49,7 @@ public class DonazioneServiceImpl implements DonazioneService {
     /**
      * Cancella una donazione tramite ID
      */
+    @Override
     public void deleteById(Integer id) {
         donazioneRepository.deleteById(id);
     }

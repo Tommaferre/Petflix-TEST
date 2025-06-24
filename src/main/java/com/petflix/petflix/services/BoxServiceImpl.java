@@ -43,12 +43,31 @@ public class BoxServiceImpl implements BoxService {
     @Override
     public Box updateBox(Integer id, Box boxDetails) {
         Box box = boxRepo.findById(id)
-            .orElseThrow(() -> new RuntimeException("Box non trovato con id: " + id));
+                .orElseThrow(() -> new RuntimeException("Box non trovato con id: " + id));
 
         box.setNome(boxDetails.getNome());
         box.setCapienza(boxDetails.getCapienza());
 
         return boxRepo.save(box);
+    }
+
+    @Override
+    public Box patchBox(int id_box, Box patchBox) {
+        // Recupera il box esistente dal database
+        Box existingBox = boxRepo.findById(id_box)
+                .orElseThrow(() -> new RuntimeException("Box not found with id: " + id_box));
+
+        // Aggiorna solo i campi non nulli
+        if (patchBox.getNome() != null) {
+            existingBox.setNome(patchBox.getNome());
+        }
+
+        if (patchBox.getCapienza() != 0) {
+            existingBox.setCapienza(patchBox.getCapienza());
+        }
+
+        // Salva il box aggiornato nel database
+        return boxRepo.save(existingBox);
     }
 
     @Override

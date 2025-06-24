@@ -1,12 +1,20 @@
 package com.petflix.petflix.controller;
 
-import com.petflix.petflix.model.Donatore; // Modello Donatore
+import java.util.List; // Modello Donatore
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping; // Iniezione dipendenze
+import org.springframework.web.bind.annotation.GetMapping; // RestController e mapping
+import org.springframework.web.bind.annotation.PatchMapping; // Lista di oggetti
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.petflix.petflix.model.Donatore;
 import com.petflix.petflix.services.DonatoreService;
-
-import org.springframework.beans.factory.annotation.Autowired; // Iniezione dipendenze
-import org.springframework.web.bind.annotation.*; // RestController e mapping
-
-import java.util.List; // Lista di oggetti
 
 /**
  * Controller REST per la gestione dei Donatori.
