@@ -137,7 +137,7 @@ class DonatoriManager {
     async loadData() {
         try {
             const response = await fetch
-            ('/api/donatori');
+            ('/donatori');
             this.donatori = await 
             response.json();
             this.renderTable();
