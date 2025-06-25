@@ -1,0 +1,199 @@
+# Guida Completa per Collegare Backend e Frontend nel Progetto Petflix
+Questa guida dettagliata spiega come configurare e collegare il backend Spring Boot con il frontend statico, comprese le chiamate API e la connessione al database H2.
+
+## 1. Configurazione del Database H2
+### a. Dipendenze Maven
+Nel file pom.xml , assicurati di avere le seguenti dipendenze:
+
+```
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</
+    groupId>
+    <artifactId>spring-boot-starter-data
+    -jpa</artifactId>
+</dependency>
+```
+### b. Configurazione application.properties
+Configura il database e la console H2:
+
+```
+spring.datasource.url=jdbc:h2:file:./
+data/petflixdb
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.driverClassName=org.
+h2.Driver
+spring.jpa.database-platform=org.
+hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+```
+- ddl-auto=update aggiorna automaticamente lo schema del database.
+- La console H2 sarà accessibile su http://localhost:8080/h2-console .
+### c. File SQL di Persistenza
+Posiziona eventuali file SQL di inizializzazione (es. data-test.sql ) in src/main/resources per il caricamento automatico all'avvio.
+
+## 2. Definizione delle Entità JPA
+Crea classi entità Java per ogni tabella, ad esempio:
+
+```
+@Entity
+@Table(name = "donatori")
+public class Donatore {
+    @Id
+    @GeneratedValue(strategy = 
+    GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+    private String cognome;
+    private String telefono;
+    private String email;
+    private String indirizzo;
+    // getters e setters
+}
+```
+## 3. Creazione dei Repository
+Definisci interfacce repository per l'accesso ai dati:
+
+```
+public interface DonatoreRepository 
+extends JpaRepository<Donatore, Long> {
+}
+```
+## 4. Creazione dei Controller REST
+Implementa controller per esporre le API:
+
+```
+@RestController
+@RequestMapping("/api/donatori")
+public class DonatoreController {
+
+    @Autowired
+    private DonatoreRepository 
+    donatoreRepository;
+
+    @GetMapping
+    public List<Donatore> getAll() {
+        return donatoreRepository.
+        findAll();
+    }
+
+    @PostMapping
+    public Donatore create(@RequestBody 
+    Donatore donatore) {
+        return donatoreRepository.save
+        (donatore);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Donatore> 
+    update(@PathVariable Long id, 
+    @RequestBody Donatore 
+    donatoreDetails) {
+        Donatore donatore = 
+        donatoreRepository.findById(id)
+            .orElseThrow(() -> new 
+            ResourceNotFoundException
+            ("Donatore non trovato"));
+        donatore.setNome
+        (donatoreDetails.getNome());
+        donatore.setCognome
+        (donatoreDetails.getCognome());
+        donatore.setTelefono
+        (donatoreDetails.getTelefono());
+        donatore.setEmail
+        (donatoreDetails.getEmail());
+        donatore.setIndirizzo
+        (donatoreDetails.getIndirizzo
+        ());
+        Donatore updated = 
+        donatoreRepository.save
+        (donatore);
+        return ResponseEntity.ok
+        (updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete
+    (@PathVariable Long id) {
+        donatoreRepository.deleteById
+        (id);
+        return ResponseEntity.ok().build
+        ();
+    }
+}
+```
+## 5. Collegamento Frontend-Backend con API
+Nel file JavaScript del frontend (es. donatori.js ), sostituisci i dati simulati con chiamate API reali:
+
+```
+class DonatoriManager {
+    async loadData() {
+        try {
+            const response = await fetch
+            ('/api/donatori');
+            this.donatori = await 
+            response.json();
+            this.renderTable();
+        } catch (error) {
+            console.error('Errore nel 
+            caricamento dati:', error);
+        }
+    }
+
+    async saveDonatore() {
+        const donatoreData = { /* dati 
+        dal form */ };
+        if (this.currentDonatore) {
+            await fetch(`/api/donatori/$
+            {this.currentDonatore.id}`, 
+            {
+                method: 'PUT',
+                headers: { 
+                'Content-Type': 
+                'application/json' },
+                body: JSON.stringify
+                (donatoreData)
+            });
+        } else {
+            await fetch('/api/
+            donatori', {
+                method: 'POST',
+                headers: { 
+                'Content-Type': 
+                'application/json' },
+                body: JSON.stringify
+                (donatoreData)
+            });
+        }
+        await this.loadData();
+        this.closeModal();
+    }
+
+    async deleteDonatore(id) {
+        if (confirm('Sei sicuro di 
+        voler eliminare questo donatore?
+        ')) {
+            await fetch(`/api/donatori/$
+            {id}`, { method: 
+            'DELETE' });
+            await this.loadData();
+        }
+    }
+}
+```
+## 6. Avvio e Test
+- Avvia l'applicazione Spring Boot.
+- Accedi al frontend su http://localhost:8080/ .
+- Verifica che i dati siano caricati correttamente dal database.
+- Usa la console H2 per ispezionare i dati.
+## Note Finali
+- Gestisci CORS se frontend e backend sono su domini diversi.
+- Estendi le API per funzionalità avanzate come paginazione e filtri.
+- Mantieni separati i file statici in src/main/resources/static .
