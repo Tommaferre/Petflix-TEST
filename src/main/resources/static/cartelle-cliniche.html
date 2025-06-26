@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartelle Cliniche - Rifugio Animali</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-paw"></i> Petflix</h1>
+                <p>Sistema di Gestione Rifugio</p>
+            </div>
+            <div class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="animali.html" class="nav-item">
+                    <i class="fas fa-dog"></i> Animali
+                </a>
+                <a href="adottanti.html" class="nav-item">
+                    <i class="fas fa-users"></i> Adottanti
+                </a>
+                <a href="adozioni.html" class="nav-item">
+                    <i class="fas fa-heart"></i> Adozioni
+                </a>
+                <a href="box.html" class="nav-item">
+                    <i class="fas fa-home"></i> Box
+                </a>
+                <a href="cartelle-cliniche.html" class="nav-item active">
+                    <i class="fas fa-file-medical"></i> Cartelle Cliniche
+                </a>
+                <a href="donatori.html" class="nav-item">
+                    <i class="fas fa-hand-holding-heart"></i> Donatori
+                </a>
+                <a href="donazioni.html" class="nav-item">
+                    <i class="fas fa-donate"></i> Donazioni
+                </a>
+                <a href="veterinari.html" class="nav-item">
+                    <i class="fas fa-user-md"></i> Veterinari
+                </a>
+                <a href="visite-mediche.html" class="nav-item">
+                    <i class="fas fa-stethoscope"></i> Visite Mediche
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="top-bar">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>Cartelle Cliniche</h2>
+            </div>
+
+            <div class="content-area">
+                <div class="page-header">
+                    <h1 class="page-title">Cartelle Cliniche</h1>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="addCartellaBtn">
+                            <i class="fas fa-plus"></i> Nuova Cartella
+                        </button>
+                        <button class="btn btn-success" onclick="window.print()">
+                            <i class="fas fa-print"></i> Stampa
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Cerca cartelle cliniche...">
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="cartelleTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Animale</th>
+                                <th>Data Creazione</th>
+                                <th>Peso (kg)</th>
+                                <th>Altezza (cm)</th>
+                                <th>Stato Salute</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartelleTableBody">
+                            <!-- I dati verranno inseriti dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal per aggiungere/modificare cartella clinica -->
+    <div id="cartellaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Nuova Cartella Clinica</h2>
+            <form id="cartellaForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animaleSelect">Animale:</label>
+                        <select class="form-control" id="animaleSelect" required>
+                            <option value="">Seleziona animale</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dataCreazione">Data Creazione:</label>
+                        <input type="date" class="form-control" id="dataCreazione" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="peso">Peso (kg):</label>
+                        <input type="number" class="form-control" id="peso" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="altezza">Altezza (cm):</label>
+                        <input type="number" class="form-control" id="altezza" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="statoSalute">Stato di Salute:</label>
+                    <select class="form-control" id="statoSalute" required>
+                        <option value="">Seleziona stato</option>
+                        <option value="ottimo">Ottimo</option>
+                        <option value="buono">Buono</option>
+                        <option value="discreto">Discreto</option>
+                        <option value="critico">Critico</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="note">Note Mediche:</label>
+                    <textarea class="form-control" id="note" rows="4"></textarea>
+                </div>
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary">Salva</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Annulla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/cartelle-cliniche.js"></script>
+</body>
+</html>

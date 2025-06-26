@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Donazioni</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+</head>
+<body>
+    <h1>Test Donazioni</h1>
+    <form id="donazioneForm">
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" name="tipo" required>
+        <label for="contenuto">Contenuto:</label>
+        <input type="text" id="contenuto" name="contenuto" required>
+        <label for="note_donatore">Note Donatore:</label>
+        <input type="text" id="note_donatore" name="note_donatore">
+        <button type="submit">Invia Donazione</button>
+    </form>
+    <h2>Donazioni Registrate</h2>
+    <ul id="donazioniList"></ul>
+    <script>
+        // Carica le donazioni esistenti
+        function loadDonazioni() {
+            fetch('/donazioni')
+                .then(response => {
+                    if (!response.ok) throw new Error('Errore nel recupero donazioni');
+                    return response.json();
+                })
+                .then(data => {
+                    const list = document.getElementById('donazioniList');
+                    list.innerHTML = '';
+                    if (!Array.isArray(data)) {
+                        list.innerHTML = '<li>Nessuna donazione trovata.</li>';
+                        return;
+                    }
+                    data.forEach(d => {
+                        const li = document.createElement('li');
+                        li.textContent = `ID: ${d.id_donazione ?? d.id}, Tipo: ${d.tipo}, Contenuto: ${d.contenuto}, Note: ${d.note_donatore}`;
+                        list.appendChild(li);
+                    });
+                })
+                .catch(err => {
+                    document.getElementById('donazioniList').innerHTML = '<li>Errore di connessione o nessun dato disponibile.</li>';
+                });
+        }
+        loadDonazioni();
+        // Gestione invio form
+        document.getElementById('donazioneForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const tipo = document.getElementById('tipo').value;
+            const contenuto = document.getElementById('contenuto').value;
+            const note_donatore = document.getElementById('note_donatore').value;
+            fetch('/donazioni', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ tipo, contenuto, note_donatore })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Errore nell\'inserimento donazione');
+                loadDonazioni();
+                document.getElementById('donazioneForm').reset();
+            })
+            .catch(() => alert('Errore durante l\'inserimento della donazione!'));
+        });
+    </script>
+</body>
+</html>
