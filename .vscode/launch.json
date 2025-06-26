@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PetflixApplication<petflix>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.petflix.petflix.PetflixApplication",
+            "projectName": "petflix",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
